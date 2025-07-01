@@ -32,12 +32,12 @@ public class AccountController {
 
     @GetMapping("/balance")
     AccountBalanceDTO getBalanceDTO(@PathVariable String accountId) {
-        return AccountMapper.fromBalanceDomainToDto(accountUseCase.retrieveBalance(accountId));
+        return AccountMapper.fromBalanceDomainToDto(accountUseCase.retrieveBalanceByAccountId(accountId));
     }
 
     @GetMapping("/statement")
     AccountStatementDTO findStatement(@PathVariable String accountId) {
-        return AccountMapper.fromStatementDomainToDto(accountUseCase.retrieveStatement(accountId));
+        return AccountMapper.fromStatementDomainToDto(accountUseCase.findStatementByAccountId(accountId));
     }
 
     @PostMapping("/withdraw")

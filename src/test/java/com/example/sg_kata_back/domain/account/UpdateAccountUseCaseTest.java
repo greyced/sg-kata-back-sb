@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +27,7 @@ public class UpdateAccountUseCaseTest {
      @Test
     void should_withdraw_method_correctly_called() {
         // Given
-        final AccountBalance mockAccountBalance = AccountBalance.builder().amount( new BigDecimal(200)).build();
+        final AccountBalance mockAccountBalance = new AccountBalance(UUID.randomUUID().toString(), new BigDecimal(200), AccountCurrency.EUR);
         when(accountUpdate.withdraw(accountId, new BigDecimal(100))).thenReturn(mockAccountBalance);
 
         // When
@@ -41,7 +42,7 @@ public class UpdateAccountUseCaseTest {
      @Test
     void should_deposit_method_correctly_called() {
         // Given
-        final AccountBalance mockAccountBalance = AccountBalance.builder().amount( new BigDecimal(200)).build();
+        final AccountBalance mockAccountBalance = new AccountBalance(UUID.randomUUID().toString(), new BigDecimal(200), AccountCurrency.EUR);
         when(accountUpdate.deposit(accountId, new BigDecimal(100))).thenReturn(mockAccountBalance);
 
         // When

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,11 +28,11 @@ public class AccountUseCaseTest {
     @Test
     void should_return_balance_account() {
         // Given
-        final AccountBalance mockAccountBalance = AccountBalance.builder().amount( new BigDecimal(300)).build();
+        final AccountBalance mockAccountBalance = new AccountBalance(UUID.randomUUID().toString(), new BigDecimal(300), AccountCurrency.EUR);
         when(accountFetch.fetchAccountBalance(accountId)).thenReturn(mockAccountBalance);
 
         // When
-        final AccountBalance accountBalance = accountUseCase.retrieveBalance(accountId);
+        final AccountBalance accountBalance = accountUseCase.retrieveBalanceByAccountId(accountId);
 
         // Then
 
@@ -43,19 +44,18 @@ public class AccountUseCaseTest {
         // Given
 
         final List<AccountTransaction> mockTransactions = List.of(
-            AccountTransaction.builder().type("deposit")
-                    .amount(new BigDecimal(100)).dateTime(LocalDateTime.now()).id("id1").build(), AccountTransaction.builder().type("deposit")
-                    .amount(new BigDecimal(200)).dateTime(LocalDateTime.now()).id("id2").build());
+            new AccountTransaction(UUID.randomUUID().toString(), AccountTransactionType.DEPOSIT, LocalDateTime.now(), new BigDecimal(200)),
+             new AccountTransaction(UUID.randomUUID().toString(), AccountTransactionType.DEPOSIT, LocalDateTime.now(), new BigDecimal(100)));
 
-        final AccountStatement mockAccountStatement = AccountStatement.builder().status("POSITIVE").transactions(mockTransactions).build();
+        final AccountStatement mockAccountStatement = new AccountStatement(accountId, mockTransactions);
 
         when(accountFetch.fetchAccountStatement(accountId)).thenReturn(mockAccountStatement);
 
         // When
-        final AccountStatement accountStatement = accountUseCase.retrieveStatement(accountId);
+        final AccountStatement accountStatement = accountUseCase.findStatementByAccountId(accountId);
 
         // Then
-        Assertions.assertThat(accountStatement.transactions().size()).isEqualTo( 2);
+        Assertions.assertThat(accountStatement.getTransactions().size()).isEqualTo( 2);
     }
 
 }

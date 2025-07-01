@@ -8,11 +8,11 @@ public class AccountUseCase {
         this.accountFetch = accountFetch;
     }
 
-    public AccountStatement retrieveStatement(String accountId) {
+    public AccountStatement findStatementByAccountId(String accountId) {
         return this.accountFetch.fetchAccountStatement(accountId);
     }
 
-    public AccountBalance retrieveBalance(String accountId) {
+    public AccountBalance retrieveBalanceByAccountId(String accountId) {
         return this.accountFetch.fetchAccountBalance(accountId);
     }
 
