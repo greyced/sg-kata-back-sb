@@ -10,12 +10,10 @@ public class UpdateAccountUseCase {
     }
 
     public AccountBalance withdraw(String accountId, BigDecimal amount) {
-        // to do : implement validator
         return this.accountUpdate.withdraw(accountId, amount);
     }
 
     public AccountBalance deposit(String accountId, BigDecimal amount) {
-         // to do : implement validator
         return this.accountUpdate.deposit(accountId, amount);
     }
 

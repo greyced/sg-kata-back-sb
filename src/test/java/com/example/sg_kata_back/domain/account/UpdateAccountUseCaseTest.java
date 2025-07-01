@@ -35,7 +35,7 @@ public class UpdateAccountUseCaseTest {
 
         // Then
 
-         verify(accountUpdate, times(1)).withdraw(accountId, new BigDecimal(100));
+        verify(accountUpdate, times(1)).withdraw(accountId, new BigDecimal(100));
     }
 
 

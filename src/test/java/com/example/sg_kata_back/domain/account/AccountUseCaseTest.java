@@ -19,6 +19,7 @@ public class AccountUseCaseTest {
 
     final String accountId = "accountId";
 
+
     @Mock
     AccountFetch accountFetch;
 
@@ -26,7 +27,7 @@ public class AccountUseCaseTest {
     AccountUseCase accountUseCase;
 
     @Test
-    void should_return_balance_account() {
+    void should_return_expected_balance_account() {
         // Given
         final AccountBalance mockAccountBalance = new AccountBalance(UUID.randomUUID().toString(), new BigDecimal(300), AccountCurrency.EUR);
         when(accountFetch.fetchAccountBalance(accountId)).thenReturn(mockAccountBalance);
@@ -40,7 +41,7 @@ public class AccountUseCaseTest {
     }
 
      @Test
-    void should_return_statement_account() {
+    void should_return_expected_statement_account() {
         // Given
 
         final List<AccountTransaction> mockTransactions = List.of(

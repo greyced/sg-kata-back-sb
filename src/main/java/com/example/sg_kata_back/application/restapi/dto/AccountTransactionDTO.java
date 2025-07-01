@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import lombok.Builder;
-import lombok.Data;
 
 @Builder
 public record AccountTransactionDTO(BigDecimal amount, LocalDateTime date, String type) {

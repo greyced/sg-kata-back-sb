@@ -27,21 +27,26 @@ public class LocalAccountRepository {
         public List<AccountTransaction> transactions = new ArrayList<>();
 
         public AccountBalance deposit(BigDecimal amount) {
-                AccountTransaction deposit = new AccountTransaction(UUID.randomUUID().toString(), AccountTransactionType.DEPOSIT,
+                AccountTransaction deposit = new AccountTransaction(UUID.randomUUID().toString(),
+                                AccountTransactionType.DEPOSIT,
                                 LocalDateTime.now(), amount);
                 transactions.add(deposit);
-                return new AccountBalance(UUID.randomUUID().toString(), computeBalanceAmount(transactions), AccountCurrency.EUR);
+                return new AccountBalance(UUID.randomUUID().toString(), computeBalanceAmount(transactions),
+                                AccountCurrency.EUR);
         }
 
         public AccountBalance withdraw(BigDecimal amount) {
-                AccountTransaction withdraw = new AccountTransaction(UUID.randomUUID().toString(), AccountTransactionType.WITHDRAW,
+                AccountTransaction withdraw = new AccountTransaction(UUID.randomUUID().toString(),
+                                AccountTransactionType.WITHDRAW,
                                 LocalDateTime.now(), amount);
                 transactions.add(withdraw);
-                return new AccountBalance(UUID.randomUUID().toString(), computeBalanceAmount(transactions), AccountCurrency.EUR);
+                return new AccountBalance(UUID.randomUUID().toString(), computeBalanceAmount(transactions),
+                                AccountCurrency.EUR);
         }
 
         public AccountBalance getBalance(String accountId) {
-                return new AccountBalance(UUID.randomUUID().toString() + accountId, computeBalanceAmount(transactions), AccountCurrency.EUR);
+                return new AccountBalance(UUID.randomUUID().toString() + accountId, computeBalanceAmount(transactions),
+                                AccountCurrency.EUR);
         }
 
         public AccountStatement getStatement(String accountId) {
@@ -49,6 +54,11 @@ public class LocalAccountRepository {
         }
 
         private void initStatement() {
+                this.transactions.add(initialTransaction);
+        }
+
+        public void reset() {
+                this.transactions.clear();
                 this.transactions.add(initialTransaction);
         }
 
